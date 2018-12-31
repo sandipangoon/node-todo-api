@@ -12,7 +12,7 @@ const client = new MongoClient(url, {
 });
 
 // Use connect method to connect to the Server
-client.connect(function (err) {
+client.connect(function(err) {
   if (err) {
     return console.log('Unable to connect to Database.');
   }
@@ -33,11 +33,25 @@ client.connect(function (err) {
   //   console.log(result)
   // });
 
-  db.collection('Users').findOneAndDelete({
-    _id: new ObjectID("5c1d5f20e35c0c3d888c2481")
-  }).then((result) => {
-    console.log(result);
-  })
+  // db.collection('Users').findOneAndDelete({
+  //   _id: new ObjectID("5c1d5f20e35c0c3d888c2481")
+  // }).then((result) => {
+  //   console.log(result);
+  // })
+
+  db.collection('Todos')
+    .findOneAndUpdate(
+      {
+        _id: new ObjectID('5c28105ca673a549d45a3356')
+      },
+      {
+        $set: { completed: true }
+      },
+      { returnOriginal: false }
+    )
+    .then(result => {
+      console.log(result);
+    });
 
   //client.close();
 });
